@@ -4,17 +4,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
 from app.routers import todo
-from app import models  # ensure models are imported before create_all
+from app import models  # noqa: F401
 
-# create tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Todo API")
 
-# allowed frontend origins
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://todoapp-1-8fop.onrender.com",  # <- your frontend on Render
     os.getenv("FRONTEND_URL", "http://localhost:3000"),
 ]
 
@@ -32,8 +31,3 @@ app.include_router(todo.router, prefix="/todos", tags=["todos"])
 @app.get("/")
 def root():
     return {"message": "Todo API running"}
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok"}
