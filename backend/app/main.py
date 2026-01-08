@@ -13,8 +13,7 @@ app = FastAPI(title="Todo API")
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://todoapp-1-8fop.onrender.com",  # <- your frontend on Render
-    os.getenv("FRONTEND_URL", "http://localhost:3000"),
+    "https://todoapp-1-8fop.onrender.com",  # your frontend on Render
 ]
 
 app.add_middleware(
